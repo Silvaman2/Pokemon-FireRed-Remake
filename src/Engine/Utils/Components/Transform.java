@@ -18,6 +18,10 @@ public class Transform implements Component {
         return this.position;
     }
 
+    public void setPosition(Vector2 newPosition) {
+        this.position = newPosition;
+    }
+
     @Override
     public void start() {
 

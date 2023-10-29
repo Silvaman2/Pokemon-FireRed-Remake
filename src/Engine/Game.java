@@ -1,19 +1,22 @@
 package Engine;
 
+import Assets.PlayerScript;
 import Engine.Utils.Components.SpriteRenderer;
 import Engine.Utils.GameObject;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Game implements Runnable {
-    public static final int WIDTH = 800;
-    public static final int HEIGHT = 600;
+    public static final int PPU = 6;
+    public static final int WIDTH = 240;
+    public static final int HEIGHT = 160;
     public static final int FPS = 30;
-    public static final int UPS = 300;
+    public static final int UPS = 100;
+    public static final Input INPUT = new Input();
 
     public static Game gameInstance;
-
     private GameFrame gameFrame;
     private GamePanel gamePanel;
     private Thread gameThread;
@@ -24,9 +27,11 @@ public class Game implements Runnable {
     }
 
     public Game() {
-        this.gameFrame = new GameFrame();
         this.gamePanel = new GamePanel();
-        this.gameFrame.add(gamePanel);
+        this.gameFrame = new GameFrame(this.gamePanel);
+        this.gameFrame.addKeyListener(INPUT);
+        this.gameFrame.pack();
+        this.gameFrame.setVisible(true);
         this.gameThread = new Thread(this);
         this.gameThread.start();
     }
@@ -71,16 +76,18 @@ public class Game implements Runnable {
     }
 
     private void start() {
-        GameObject player = new GameObject();
-        player.addComponent(new SpriteRenderer());
-        SpriteRenderer playerRenderer = (SpriteRenderer) player.getComponent(SpriteRenderer.class);
-        playerRenderer.setSprite(GamePanel.getImage("Resources/playerSprites.png"));
+        GameObject playerObject = new GameObject();
+        SpriteRenderer playerRenderer = new SpriteRenderer();
+        playerObject.addComponent(playerRenderer);
+        playerRenderer.setSprite(GamePanel.getImage("Resources/playerFrontIdle.png"));
+        playerObject.addComponent(new PlayerScript());
 
         this.gameObjects.forEach(GameObject::start);
     }
 
     private void update() {
         this.gameObjects.forEach(GameObject::update);
+        INPUT.clearStates();
     }
 
     public List<GameObject> getGameObjects() {

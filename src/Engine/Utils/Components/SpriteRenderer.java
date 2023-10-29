@@ -31,7 +31,7 @@ public class SpriteRenderer implements Component {
     @Override
     public void drawUpdate(Graphics2D graphics) {
         Vector2 position = this.parentObject.getTransform().getPosition();
-        graphics.drawImage(this.sprite, position.getX(), position.getY(), null);
+        graphics.drawImage(this.sprite, (int)position.getX(), (int)position.getY(), null);
     }
 
     @Override

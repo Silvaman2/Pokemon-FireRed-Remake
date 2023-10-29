@@ -14,6 +14,10 @@ public class GamePanel extends JPanel {
     private BufferedImage gameImage;
 
 
+    public GamePanel() {
+        this.setPreferredSize(new Dimension(Game.WIDTH * Game.PPU, Game.HEIGHT * Game.PPU));
+    }
+
     public static BufferedImage getImage(String filePath) {
 
         try(InputStream input = GamePanel.class.getResourceAsStream("/Assets/" + filePath)) {
@@ -32,13 +36,16 @@ public class GamePanel extends JPanel {
     }
 
     public void updateGraphics() {
-        gameImage = new BufferedImage(Game.WIDTH, Game.HEIGHT, BufferedImage.TYPE_INT_RGB);
-        Graphics2D graphics = gameImage.createGraphics();
+        this.gameImage = new BufferedImage(Game.WIDTH * Game.PPU, Game.HEIGHT * Game.PPU, BufferedImage.TYPE_INT_RGB);
+        BufferedImage resultImage = new BufferedImage(Game.WIDTH, Game.HEIGHT, BufferedImage.TYPE_INT_RGB);
+        Graphics2D graphics = resultImage.createGraphics();
 
         for (GameObject gameObject : Game.gameInstance.getGameObjects()) {
             for (Component component : gameObject.getComponents()) {
                 component.drawUpdate(graphics);
             }
         }
+        this.gameImage.createGraphics().drawImage(resultImage, 0, 0, Game.WIDTH * Game.PPU, Game.HEIGHT * Game.PPU, null);
+        graphics.dispose();
     }
 }

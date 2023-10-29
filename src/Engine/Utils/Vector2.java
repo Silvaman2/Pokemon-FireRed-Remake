@@ -2,24 +2,24 @@ package Engine.Utils;
 
 public class Vector2 {
     public static final Vector2 ZERO = new Vector2();
-    private final int positionX;
-    private final int positionY;
+    private final double positionX;
+    private final double positionY;
 
     private Vector2() {
         this.positionX = 0;
         this.positionY = 0;
     }
 
-    public Vector2(int x, int y) {
+    public Vector2(double x, double y) {
         this.positionX = x;
         this.positionY = y;
     }
 
-    public int getX() {
+    public double getX() {
         return positionX;
     }
 
-    public int getY() {
+    public double getY() {
         return positionY;
     }
 }

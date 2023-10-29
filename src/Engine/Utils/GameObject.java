@@ -10,14 +10,24 @@ public class GameObject {
 
     private final Map<Class<? extends Component>, Component> componentMap = new HashMap<>();
     private Transform transform;
+    private String objectName;
 
     public GameObject() {
         Game.gameInstance.getGameObjects().add(this);
         this.transform = new Transform();
         this.addComponent(this.transform);
+        this.objectName = "GameObject";
     }
     public Transform getTransform() {
         return this.transform;
+    }
+
+    public String getObjectName() {
+        return objectName;
+    }
+
+    public void setObjectName(String objectName) {
+        this.objectName = objectName;
     }
 
     public Set<Component> getComponents() {
