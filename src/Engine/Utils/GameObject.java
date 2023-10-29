@@ -18,6 +18,12 @@ public class GameObject {
         this.addComponent(this.transform);
         this.objectName = "GameObject";
     }
+
+    public GameObject(String objectName) {
+        this();
+        this.objectName = objectName;
+    }
+
     public Transform getTransform() {
         return this.transform;
     }

@@ -1,5 +1,8 @@
 package Engine;
 
+import Engine.Utils.Config;
+import Engine.Utils.MathUtils;
+
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.Map;
@@ -17,9 +20,7 @@ public class Input implements KeyListener {
     private Set<Integer> keyReleasedSet = new TreeSet<>();
 
     @Override
-    public void keyTyped(KeyEvent e) {
-
-    }
+    public void keyTyped(KeyEvent e) {}
 
     @Override
     public void keyPressed(KeyEvent e) {
@@ -49,6 +50,25 @@ public class Input implements KeyListener {
     public boolean getKeyReleased(int keyCode) {
         return this.keyReleasedSet.contains(keyCode);
     }
+
+    public double getAxis(String axisName) {
+        double resultAxis = 0;
+        switch(axisName) {
+            case "Horizontal":
+                resultAxis -= (double) MathUtils.booleanToInt(this.getKeyHeld(Config.Input.MovementAxis.Horizontal.NEGATIVE_KEY));
+                resultAxis += (double) MathUtils.booleanToInt(this.getKeyHeld(Config.Input.MovementAxis.Horizontal.POSITIVE_KEY));
+                break;
+            case "Vertical":
+                resultAxis -= (double) MathUtils.booleanToInt(this.getKeyHeld(Config.Input.MovementAxis.Vertical.NEGATIVE_KEY));
+                resultAxis += (double) MathUtils.booleanToInt(this.getKeyHeld(Config.Input.MovementAxis.Vertical.POSITIVE_KEY));
+                break;
+            default:
+                throw new RuntimeException("Axis doesn't exist");
+        }
+        return resultAxis;
+    }
+
+
 
     public void clearStates() {
         for (Integer currentKeyCode : keyPressedMap.keySet()) {

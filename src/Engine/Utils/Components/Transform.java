@@ -22,20 +22,29 @@ public class Transform implements Component {
         this.position = newPosition;
     }
 
-    @Override
-    public void start() {
+    public Vector2 moveTowards(Vector2 newPosition, double moveSpeed) {
+        Vector2 positionDiff = newPosition.subtract(this.position);
+        Vector2 positionAbs = positionDiff.abs();
+        Vector2 positionDiffSign = positionDiff.sign();
 
+        Vector2 resultPosition = Vector2.sum(
+                this.position,
+                new Vector2(
+                        Math.min(positionAbs.getX(), moveSpeed) * positionDiffSign.getX(),
+                        Math.min(positionAbs.getY(), moveSpeed) * positionDiffSign.getY()
+                )
+        );
+        return resultPosition;
     }
 
     @Override
-    public void update() {
-
-    }
+    public void start() {}
 
     @Override
-    public void drawUpdate(Graphics2D graphics) {
+    public void update() {}
 
-    }
+    @Override
+    public void drawUpdate(Graphics2D graphics) {}
 
     @Override
     public void setParentObject(GameObject parent) {

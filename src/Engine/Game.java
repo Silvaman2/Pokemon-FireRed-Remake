@@ -13,8 +13,8 @@ public class Game implements Runnable {
     public static final int PPU = 6;
     public static final int WIDTH = 240;
     public static final int HEIGHT = 160;
-    public static final int FPS = 30;
-    public static final int UPS = 100;
+    public static final int FPS = 65;
+    public static final int UPS = 200;
     public static final Input INPUT = new Input();
 
     public static Game gameInstance;
@@ -88,5 +88,11 @@ public class Game implements Runnable {
 
     public List<GameObject> getGameObjects() {
         return this.gameObjects;
+    }
+
+    public GameObject getGameObjectByName(String gameObjectName) {
+        return this.gameObjects.stream()
+                .filter(gameObject -> gameObject.getObjectName().equals(gameObjectName))
+                .findFirst().get();
     }
 }
