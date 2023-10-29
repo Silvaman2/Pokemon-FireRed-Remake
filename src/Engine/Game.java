@@ -3,6 +3,7 @@ package Engine;
 import Assets.PlayerScript;
 import Engine.Utils.Components.SpriteRenderer;
 import Engine.Utils.GameObject;
+import Engine.Utils.Workspace;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -76,12 +77,7 @@ public class Game implements Runnable {
     }
 
     private void start() {
-        GameObject playerObject = new GameObject();
-        SpriteRenderer playerRenderer = new SpriteRenderer();
-        playerObject.addComponent(playerRenderer);
-        playerRenderer.setSprite(GamePanel.getImage("Resources/playerFrontIdle.png"));
-        playerObject.addComponent(new PlayerScript());
-
+        new Workspace();
         this.gameObjects.forEach(GameObject::start);
     }
 

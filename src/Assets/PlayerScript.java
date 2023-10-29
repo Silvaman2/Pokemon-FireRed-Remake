@@ -10,5 +10,6 @@ public class PlayerScript extends MonoBehaviour {
 
     @Override
     public void update() {
+
     }
 }
